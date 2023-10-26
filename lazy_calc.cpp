@@ -6,8 +6,8 @@
 #include <fstream>
 #include <map>
 #include <set>
-
 #include "lazy_calc.h"
+
 
 bool Calculator::is_number(std::string const& str) {
     std::string::const_iterator it = str.begin();
@@ -41,6 +41,7 @@ std::vector<std::string> Calculator::input_to_vector(std::string const& str) {
 bool Calculator::is_valid_command(std::vector<std::string> const& v) {
     size_t n = v.size();
     std::vector<std::string> allowed_ops{"add", "subtract", "multiply"};
+
     // str is sanitized, so we know its lowercase
     if (n == 1) {  // quit
         return v[0] == "quit";
@@ -63,7 +64,6 @@ int Calculator::eval(std::string const& r) {
     if (is_number(r)) {  // base case, e.g. "A add 2" and we eval 2
         return std::stoi(r);
     }
-
     if (register_map.count(r)) {
         return register_map[r];
     }
@@ -73,7 +73,6 @@ int Calculator::eval(std::string const& r) {
         exit(1);  // can't return 1 here as we are in a helper function 
     }
     // but NOW we can process it
-
     processed_regs.insert(r);
 
     int res{};
@@ -86,9 +85,7 @@ int Calculator::eval(std::string const& r) {
             else if (c.op == "multiply") { res *= eval(c.r2); } 
         } 
     }
-
     return register_map[r] = res;
-    
 }
 
 int Calculator::main_loop() {
@@ -117,14 +114,14 @@ int Calculator::main_loop() {
             // print the actual (lazy) evaluated value of the register
             std::cout << eval(v[1]) << std::endl;
 
-        } if (n == 3) {
+        } 
+        if (n == 3) {
             // put reg1 and reg2/val in register set
             register_names.insert(v[0]);
             register_names.insert(v[2]);
             
             operations.push_back(operation{v});
         }
-
     }
 }
 

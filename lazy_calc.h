@@ -46,8 +46,6 @@ public:
        'is' either cin or file depending on argc*/
     int main_loop();
 
-
-
 private:
     // file or std::cin
     std::istream* is;
@@ -63,12 +61,6 @@ private:
 
     // prevents cycles in evaluation
     std::set<std::string> processed_regs;
-
-
-
 };
-
-
-
 
 #endif
